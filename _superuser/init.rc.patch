@@ -1,0 +1,40 @@
+--- init.rc	2021-06-14 16:19:14.770914086 +0200
++++ init.rc.original	2021-08-17 17:13:23.182706206 +0200
+@@ -11,9 +11,6 @@
+ import /init.usb.configfs.rc
+ import /init.${ro.zygote}.rc
+ 
+-# Rooting mod by Mario DANTAS
+-import /rooting.rc
+-
+ # Cgroups are mounted right before early-init using list from /etc/cgroups.json
+ on early-init
+     # Disable sysrq from keyboard
+@@ -833,24 +830,13 @@
+     seclabel u:r:ueventd:s0
+     shutdown critical
+ 
+-
+-#service console /system/bin/sh
+-#    class core
+-#    console
+-#    disabled
+-#    user shell
+-#    group shell log readproc
+-#    seclabel u:r:shell:s0
+-#    setenv HOSTNAME console
+-
+-# Mod by Mario DANTAS (make sh run as root)
+ service console /system/bin/sh
+     class core
+     console
+     disabled
+-    user root 
+-    group root shell log readproc
+-    seclabel u:r:root:s0
++    user shell
++    group shell log readproc
++    seclabel u:r:shell:s0
+     setenv HOSTNAME console
+ 
+ on property:ro.debuggable=1
